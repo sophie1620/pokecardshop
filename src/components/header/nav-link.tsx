@@ -3,6 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
+import classes from './nav-link.module.scss';
+
 interface INavLink {
   href: string, 
   children: ReactNode
@@ -12,11 +14,15 @@ interface INavLink {
 export default function NavLink({ href, children }: INavLink) {
   const path: string | null = usePathname();
 
+  const isActive = href === '/' 
+    ? path === href
+    : path?.startsWith(href);
+
   return (
     <>
       <Link 
         href={href}
-        className={ (path === href || path?.startsWith(href)) ? 'activeNav linkNav' : 'linkNav' }
+        className={ isActive ? `${classes.activeNav} ${classes.linkNav}`  : `${classes.linkNav}` }
         >
         {children}
       </Link>

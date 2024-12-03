@@ -1,0 +1,13 @@
+.cardContainer {
+  width: 146px;
+  height: 200px;
+  position: relative;
+  margin: 12px auto;
+}
+
+@media (min-width: 1024px) {
+  .cardContainer {
+    width: 233px;
+    height: 320px;
+  }
+}

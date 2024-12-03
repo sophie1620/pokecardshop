@@ -1,0 +1,12 @@
+.activeNav {
+  font-weight: 600;
+  text-decoration: underline;
+  color: $primary;
+}
+
+.linkNav:hover,
+.linkNav:active {
+  text-decoration: underline;
+  font-weight: 600;
+  color: $primary;
+}

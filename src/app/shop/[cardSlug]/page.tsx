@@ -1,72 +1,87 @@
-"use client";
 import Image from "next/image";
-
-import { useState, useEffect, use, Suspense } from "react";
+import { Suspense } from "react";
 import { notFound } from 'next/navigation';
-
 import { getCard } from "../../../../lib/http";
-import { IPokeCardData } from "@/interfaces/interfacePokemonCard";
+import classes from './page.module.scss';
 
-export default function CardPage({params}: {params: Promise<{cardSlug: string}>}) {
-  const { cardSlug } = use(params);
+interface IAttack {
+  cost: string[],
+  damage: number, 
+  effect: string, 
+  name: string
+};
 
-  const [cardData, setCardData] = useState<IPokeCardData | null>();
+interface IWeakness {
+  type: string, 
+  value: string
+}
 
-  useEffect(() => {
-    async function getCardData() {
-      const data = await getCard(cardSlug);
+export async function generateMetadata({params}: {params: Promise<{cardSlug: string}>}) {
+  const card = await getCard((await params).cardSlug);
 
-      if (data) {
-        setCardData(data);
-      } else {
-        console.error('No card data found');
-        notFound();
-      }
-    }
-    getCardData();
+  if (!card) {
+    notFound();
+  }
 
-  }, [cardSlug]);
+  return {
+    title: card.name, 
+    description: `Pokemon card for ${card.name}.`
+  }
+}
 
-  if (!cardData) {
+export default async function CardPage({params}: {params: Promise<{cardSlug: string}>}) {
+  const card = await getCard((await params).cardSlug);
+
+  if (!card) {
     return <p>Loading...</p>; 
   }
 
-  console.log(cardData);
+  console.log(card);
 
   return (
     <main>
-      <div>
         <Suspense fallback={<p>Loading...</p>}>
-          <p className="text-center">{cardData?.name}</p>
-          <div className="card-container m-auto">
+          <h2 className="text-center">{card?.name}</h2>
+          <div className={classes.cardContainer}>
             <Image
               fill
-              src={cardData.imageUrlHD}
-              alt={cardData.name}
+              src={card.imageUrlHD}
+              alt={card.name}
             ></Image>
           </div>
 
-          <div className="flex flex-col items-center mt-8">
-            { cardData.description && 
-            <p className="text-center mt-4">{cardData.description}</p>}
+          { card.description && 
+            <p className="text-center mt-4">{card.description}</p>}
 
-            <p>Type(s):
-            { cardData.types.map((type) => (
-              <span key={type}> {type}</span>
-            ))}</p>
+          <div className={classes.detail}>
+            <h3>Type(s):</h3>
+            {card.types.map((type: string) => (
+              <p key={type}> {type}</p>
+            ))}
           </div>
 
-          <div>
-            <p>Attacks:</p>
+          <div className={classes.detail}>
+            <h3>Attacks:</h3>
+              {card.attacks.map((attack: IAttack, i: number) => (
+                <div key={Math.random()}>
+                  <p>Attack {i+1}: {attack.name}</p>
+                  <p>Effect: {attack.effect}</p>
+                  <p>Cost: {attack.cost.join(', ')}</p>
+                  <p>Damage: {attack.damage}</p>
+                </div>
+              ))}
           </div>
 
-          <div>
-            <p>Weaknesses:</p>
+          <div className={classes.detail}>
+            <h3>Weaknesses:</h3>
+            {card.weaknesses.map((weak: IWeakness) => (
+              <div key={Math.random()}>
+                <p>Type: {weak.type}</p>
+                <p>Value: {weak.value}</p>
+              </div>
+            ))}
           </div>
-
-
         </Suspense>
-      </div>
     </main>
   )
 }
