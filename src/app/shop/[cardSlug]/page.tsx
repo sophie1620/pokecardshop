@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from 'next/navigation';
-import { getCard } from "../../../../lib/http";
+import { getCard } from "../../../lib/http";
 import classes from './page.module.scss';
 
 interface IAttack {

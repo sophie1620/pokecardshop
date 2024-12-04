@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, Suspense, lazy } from "react";
 
-import { getPokemon } from "../../../lib/http";
+import { getPokemon } from "../../lib/http";
 import { IPokemonCard, IPokemonData } from "../../interfaces/interfacePokemonCard";
 
 const PokemonCard = lazy(() => import("./pokemonCard"));
