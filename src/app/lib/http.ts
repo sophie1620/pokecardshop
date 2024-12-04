@@ -13,9 +13,6 @@ export async function getPokemon() {
         
         item.imageUrlHD = imageUrlHD;
         item.imageUrlReg = imageUrlReg;
-
-        // arbitrary price
-        item.price = 2
       }
 
       if (res.status !== 200) {
@@ -39,10 +36,8 @@ export async function getCard(id: string) {
     
       const imageUrlHD: string = `${res.data.image}/high.webp`;
       const imageUrlReg: string = `${res.data.image}/low.webp`;
-      // arbitrary price
-      const price: number = 2
       
-      return {...res.data, imageUrlHD, imageUrlReg, price }
+      return {...res.data, imageUrlHD, imageUrlReg }
   } catch (error) {
       console.error(error)
   }

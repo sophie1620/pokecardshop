@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { notFound } from 'next/navigation';
 import { getCard } from "../../../lib/http";
 import classes from './page.module.scss';
+import AddToCartBtn from "@/components/cartBtn/addToCartBtn";
 
 interface IAttack {
   cost: string[],
@@ -36,6 +37,8 @@ export default async function CardPage({params}: {params: Promise<{cardSlug: str
     return <p>Loading...</p>; 
   }
 
+  const cost = Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(card.price);
+
   console.log(card);
 
   return (
@@ -48,6 +51,11 @@ export default async function CardPage({params}: {params: Promise<{cardSlug: str
               src={card.imageUrlHD}
               alt={card.name}
             ></Image>
+          </div>
+
+          <div className="flex flex-row justify-end items-center gap-4">
+            <p>Cost: {cost}</p>
+            <AddToCartBtn item={card} />
           </div>
 
           { card.description && 

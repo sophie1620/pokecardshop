@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./styles/globals.scss";
 import Header from "../components/header/header";
 import Footer from "@/components/footer/footer";
+import ReduxProvider from "@/app/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Pokemon Card Shop",
@@ -17,14 +18,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="modal"></div>
-        <Header />
-        
-        <div className="wrapper">
-          {children}
-        </div>
+        <ReduxProvider>
+          <div id="modal"></div>
+          <Header />
+          
+          <div className="wrapper">
+              {children}
+          </div>
 
-        <Footer />
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
