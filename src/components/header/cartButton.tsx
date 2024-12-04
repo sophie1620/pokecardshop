@@ -1,15 +1,31 @@
 "use client";
-import { IModalProps } from "@/interfaces/interfaceModal";
+import { useState } from "react";
+import Modal from "../modal/modal";
+import Cart from "../cart/cart";
 
-export default function CartButton({open}: IModalProps) {
+export default function CartButton() {
+  const[isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   function handleOpenCart() {
-    open();
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
   }
 
   return (
-    <button onClick={handleOpenCart}>
-      Cart 0
-    </button>
+    <>
+      <button onClick={handleOpenCart}>
+        Cart 0
+      </button>
+
+      <Modal 
+        open={isModalOpen} 
+        close={closeModal}
+      >
+        <Cart />
+      </Modal>
+    </>
   )
 }

@@ -1,20 +1,8 @@
 "use client";
 import NavLink from "./nav-link";
 import CartButton from "./cartButton";
-import Modal from "../modal/modal";
-
-import { useState } from "react";
 
 export default function Header() {
-  const[isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  function openModal() {
-    setIsModalOpen(true);
-  }
-
-  function closeModal() {
-    setIsModalOpen(false);
-  }
 
   return (
     <>
@@ -52,17 +40,9 @@ export default function Header() {
             </ul>
           </nav>
 
-          <CartButton 
-            open={openModal}
-            close={closeModal}
-            isModalOpen={isModalOpen}
-          />
+          <CartButton />
         </div>
       </header>
-
-      <Modal open={isModalOpen} onClose={closeModal}>
-        <p>testing</p>
-      </Modal>
     </>
   )
 }
