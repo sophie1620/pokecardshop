@@ -40,8 +40,6 @@ export default async function CardPage({params}: {params: Promise<{cardSlug: str
 
   const cost = Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(card.price);
 
-  console.log(card);
-
   return (
     <main>
       <BackButton />

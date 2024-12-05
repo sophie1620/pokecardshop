@@ -1,13 +1,15 @@
 "use client";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 import { IPokeCardData } from "@/interfaces/interfacePokemonCard";
-import { cartActions } from "@/lib/features/cartSlice";
+import { cartActions, ICartItem } from "@/lib/features/cartSlice";
 import classes from './addToCartBtn.module.scss'
+import { useEffect, useState } from "react";
 
 export default function AddToCartBtn({item} : {item: IPokeCardData}) {
-
   const dispatch = useAppDispatch();
+  const items = useAppSelector(state => state.cart.items) as ICartItem[];
+  const [cardQuantity, setCardQuantity] = useState<number>(0);
 
   function handleAddToCart() {
     dispatch(cartActions.addItemsToCart({
@@ -15,15 +17,27 @@ export default function AddToCartBtn({item} : {item: IPokeCardData}) {
       price: item.price,
       id: item.id
     }))
-
   }
-  return (
 
-    <button
-      className={classes.cartBtn}
-      onClick={handleAddToCart}
-    >
-      Add to cart
-    </button>
+  useEffect(() => {
+    const cardItem = items.filter((i) => (
+      i.id === item.id 
+      ? i
+      : null
+    ));
+
+    setCardQuantity(cardItem[0].quantity)
+  }, [items, item.id, item])
+
+  return (
+    <>
+      <p>Quantity: {cardQuantity}</p>
+      <button
+        className={classes.cartBtn}
+        onClick={handleAddToCart}
+        >
+        Add to cart
+      </button>
+    </>
   )
 }

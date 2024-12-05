@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     domains: ['assets.tcgdex.net'], // Add the external image domain here
   },
   sassOptions: {
-    additionalData: `@import "src/app/styles/variables";`,
+    additionalData: `@import "src/app/styles/variables.scss";`,
   },
 };
 
