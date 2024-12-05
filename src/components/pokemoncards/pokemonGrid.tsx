@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, Suspense, lazy } from "react";
+import { useEffect, useState, lazy } from "react";
 
 import { getPokemon } from "../../lib/http";
 import { IPokemonCard, IPokemonData } from "../../interfaces/interfacePokemonCard";
@@ -21,13 +21,13 @@ export default function PokemonGrid() {
   return (
     <div className="w-full p-4">
       <h2>Available for purchase</h2>
-      <Suspense fallback={<p>Loading cards...</p>}>
+
         <ul className="flex flex-row justify-around flex-wrap gap-1">
           {resData?.cards.map((card: IPokemonCard) => (
             <PokemonCard card={card} key={card.id} />
           ))}
         </ul>  
-      </Suspense>
+
   </div>
   )
 }

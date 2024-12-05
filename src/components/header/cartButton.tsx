@@ -1,26 +1,31 @@
 "use client";
-import { useState } from "react";
 import Modal from "../modal/modal";
-import CartModal from '../../components/cartBtn/cartModal';
-import { useAppSelector } from "@/lib/hooks";
+import CartModal from '../cart/cartModal';
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { modalActions } from "@/lib/features/modalSlice";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 export default function CartButton() {
-  const cartQuantity = useAppSelector(state => state.cart.totalQuantity) as number;
+  const dispatch = useAppDispatch();
 
-  const[isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const cartQuantity = useAppSelector(state => state.cart.totalQuantity) as number;
+  const isModalOpen = useAppSelector(state => state.modal.isModalOpen) as boolean;
 
   function handleOpenCart() {
-    setIsModalOpen(true);
+    dispatch(modalActions.openModal())
   }
 
   function closeModal() {
-    setIsModalOpen(false);
+    dispatch(modalActions.closeModal())
   }
 
   return (
     <>
-      <button onClick={handleOpenCart}>
-        Cart {cartQuantity}
+      <button className="cart-button" onClick={handleOpenCart} aria-label="Shopping cart">
+        <FontAwesomeIcon icon={faCartShopping} size="lg" />
+        {cartQuantity}
       </button>
 
       <Modal 

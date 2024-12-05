@@ -1,11 +1,20 @@
 "use client";
+import { useEffect, useState } from 'react';
 import { cartActions, ICartItem } from '@/lib/features/cartSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { modalActions } from "@/lib/features/modalSlice";
 import classes from './cartModal.module.scss';
+
 
 export default function CartModal() {
   const dispatch = useAppDispatch();
-  const cartItems = useAppSelector(state => state.cart.items) as ICartItem[];
+  const items = useAppSelector(state => state.cart.items) as ICartItem[];
+
+  const [cartItems, setCartItems] = useState<ICartItem[] | null>(null);
+
+  useEffect(() => { 
+    setCartItems(items)
+  }, [items])
 
   function handleAddItem(item: ICartItem) {
     dispatch(cartActions.addItemsToCart({
@@ -19,10 +28,25 @@ export default function CartModal() {
     dispatch(cartActions.removeItemFromCart(id));
   }
 
+  function handleClose() {
+    dispatch(modalActions.closeModal());
+  }
+
+  const empty = <div className='flex flex-col justify-between h-1/5'>
+    <p className='text-center mt-6'>Your cart is empty. Continue shopping?</p>
+
+    <div className='flex flex-row justify-center mt-6'>
+      <button className='primary-button' onClick={handleClose} >Continue Shopping</button>
+    </div>
+  </div>
+
   return (
     <div className="modalContainer">
       <h1>Cart Items</h1>
 
+      {cartItems?.length === 0 && empty}
+
+      {cartItems && cartItems.length > 0 && 
       <div className="flex flex-col justify-start">
         <h2>Your items</h2>
 
@@ -74,6 +98,7 @@ export default function CartModal() {
 
         </ul>
       </div>
+      }
     </div>
   )
 }

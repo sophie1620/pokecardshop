@@ -4,9 +4,20 @@
   color: $primary;
 }
 
-.linkNav:hover,
-.linkNav:active {
-  text-decoration: underline;
-  font-weight: 600;
-  color: $primary;
+.linkNav {
+  font-size: 18px;
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+      font-weight: 600;
+      color: $primary;
+  }
 }
+
+@media (min-width: 640px) {
+  .linkNav {
+    font-size: 20px;
+  }
+}
+
