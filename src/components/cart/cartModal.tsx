@@ -41,7 +41,7 @@ export default function CartModal() {
   const listItemStyle = "flex flex-row justify-between mb-4 pb-4";
 
   return (
-    <div className="modalContainer">
+    <div className="modal-container">
       <h1>Cart Items</h1>
 
       {cartItems?.length === 0 && empty}
@@ -81,8 +81,12 @@ export default function CartModal() {
       </div>
       }
 
-      <div className='flex flex-row justify-end mt-auto'>
+      <div className="flex flex-row justify-end mt-auto">
         <p>Total Amount: {getCurrency(cart.totalAmount)}</p>
+      </div>
+
+      <div className="flex flex-row justify-center">
+        <button className="primary-button" disabled={cartItems.length === 0} >Continue to purchase</button>
       </div>
     </div>
   )

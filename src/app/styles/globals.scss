@@ -148,6 +148,12 @@ footer {
     background-color: $primary;
     color: white;
   }
+
+  &:disabled {
+    background-color: lightgrey;
+    color: gray;
+    border: 1px solid lightgrey;
+  }
 }
 
 .modal {
@@ -156,7 +162,7 @@ footer {
   border-radius: 10px;
 }
 
-.modalContainer {
+.modal-container {
   padding: 12px;
   display: flex;
   flex-direction: column;
