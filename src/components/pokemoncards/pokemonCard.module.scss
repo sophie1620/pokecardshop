@@ -1,0 +1,34 @@
+.cardContainer {
+  width: 88px;
+  height: 120px;
+  position: relative;
+  margin: 12px;
+}
+
+.card:hover, 
+.card:active {
+
+  .cardContainer {
+    box-shadow: 8px 10px 12px #555555;
+    border-radius: 12px;
+  }
+
+  p {
+    font-weight: 600;
+    color: $primary;
+  }
+}
+
+@media (min-width: 640px) {
+  .cardContainer {
+    width: 146px;
+    height: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardContainer {
+    width: 233px;
+    height: 320px;
+  }
+}

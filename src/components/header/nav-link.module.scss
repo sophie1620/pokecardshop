@@ -1,0 +1,38 @@
+.isButton {
+  border: 1px solid black;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 12px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: 1px solid $primary;
+    background-color: $primary;
+    color: white;
+  }
+}
+
+.activeNav {
+  font-weight: 600;
+  text-decoration: underline;
+  color: $primary;
+}
+
+.linkNav {
+  font-size: 18px;
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+      font-weight: 600;
+      color: $primary;
+  }
+}
+
+@media (min-width: 640px) {
+  .linkNav {
+    font-size: 20px;
+  }
+}
+

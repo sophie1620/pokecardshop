@@ -1,72 +1,110 @@
-"use client";
 import Image from "next/image";
-
-import { useState, useEffect, use, Suspense } from "react";
+import { Suspense } from "react";
 import { notFound } from 'next/navigation';
+import { getCard } from "../../../lib/http";
+import classes from './page.module.scss';
+import AddToCartBtn from "@/components/cart/addToCartBtn";
+import BackButton from "@/components/backButton";
 
-import { getCard } from "../../../../lib/http";
-import { IPokeCardData } from "@/interfaces/interfacePokemonCard";
+interface IAttack {
+  cost: string[],
+  damage: number, 
+  effect: string, 
+  name: string
+};
 
-export default function CardPage({params}: {params: Promise<{cardSlug: string}>}) {
-  const { cardSlug } = use(params);
+interface IWeakness {
+  type: string, 
+  value: string
+}
 
-  const [cardData, setCardData] = useState<IPokeCardData | null>();
+export async function generateMetadata({params}: {params: Promise<{cardSlug: string}>}) {
+  const card = await getCard((await params).cardSlug);
 
-  useEffect(() => {
-    async function getCardData() {
-      const data = await getCard(cardSlug);
+  if (!card) {
+    notFound();
+  }
 
-      if (data) {
-        setCardData(data);
-      } else {
-        console.error('No card data found');
-        notFound();
-      }
-    }
-    getCardData();
+  return {
+    title: card.name, 
+    description: `Pokemon card for ${card.name}.`
+  }
+}
 
-  }, [cardSlug]);
+export default async function CardPage({params}: {params: Promise<{cardSlug: string}>}) {
+  const card = await getCard((await params).cardSlug);
 
-  if (!cardData) {
+  if (!card) {
     return <p>Loading...</p>; 
   }
 
-  console.log(cardData);
+  const cost = Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(card.price);
 
   return (
     <main>
-      <div>
-        <Suspense fallback={<p>Loading...</p>}>
-          <p className="text-center">{cardData?.name}</p>
-          <div className="card-container m-auto">
-            <Image
-              fill
-              src={cardData.imageUrlHD}
-              alt={cardData.name}
-            ></Image>
+      <BackButton />
+
+      <Suspense fallback={<p>Loading...</p>}>
+        <h2 className="text-center">{card?.name}</h2>
+        <div className={classes.cardContainer}>
+          <Image
+            fill
+            src={card.imageUrlHD}
+            alt={card.name}
+          ></Image>
+        </div>
+
+        <section className="md:w-3/5  flex flex-col items-start mx-auto">
+
+          <div className="flex flex-row justify-end items-center gap-4 w-full">
+            <p>Cost: {cost}</p>
+            <AddToCartBtn item={card} />
           </div>
 
-          <div className="flex flex-col items-center mt-8">
-            { cardData.description && 
-            <p className="text-center mt-4">{cardData.description}</p>}
+          {card.description && 
+            <div>
+              <h3>Description:</h3>
+              <p className="my-4"> {card.description}</p>
+            </div>
+            }
 
-            <p>Type(s):
-            { cardData.types.map((type) => (
-              <span key={type}> {type}</span>
-            ))}</p>
+          <div>
+            <h3>Type(s):</h3>
+            {card.types.map((type: string) => (
+              <p className={classes.cardDetail} key={type}> {type}</p>
+            ))}
           </div>
 
           <div>
-            <p>Attacks:</p>
+            <h3>Attacks:</h3>
+              {card.attacks.map((attack: IAttack, i: number) => (
+                <div className={classes.cardDetail} key={Math.random()}>
+                  <p>
+                    <span>Attack {i+1}:</span> {attack.name}
+                  </p>
+                  <p>
+                    <span>Cost:</span> {attack.cost.join(', ')}
+                  </p>
+                  <p>
+                    <span>Damage:</span> {attack.damage}
+                  </p>
+                </div>
+            ))}
           </div>
 
           <div>
-            <p>Weaknesses:</p>
+            <h3>Weaknesses:</h3>
+            {card.weaknesses.map((weak: IWeakness) => (
+              <div className={classes.cardDetail} key={Math.random()}>
+                <p>
+                  <span>Type:</span> {weak.type}</p>
+                <p>
+                  <span>Value:</span> {weak.value}</p>
+              </div>
+            ))}
           </div>
-
-
-        </Suspense>
-      </div>
+        </section>
+      </Suspense>
     </main>
   )
 }
