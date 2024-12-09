@@ -42,6 +42,8 @@ const navigation: INav[] = [
   function handleMobileMenu() {
     if (showNav) {
       setShowNav(false);
+    } else {
+      return
     }
   }
 
@@ -59,7 +61,7 @@ const navigation: INav[] = [
   return (
     <>
       <header>
-        <h1>Pokemon Card Shop</h1>
+        <h1>Pokémon Card Shop</h1>
 
         <div className="flex flex-row justify-between md:justify-around items-center relative">
           

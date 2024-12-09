@@ -8,11 +8,12 @@ import classes from './nav-link.module.scss';
 interface INavLink {
   href: string, 
   children: ReactNode, 
-  menuToggle: () => void
+  menuToggle?: () => void,
+  isButton?: boolean
 }
 
 
-export default function NavLink({ href, children, menuToggle }: INavLink) {
+export default function NavLink({ href, children, menuToggle, isButton = false }: INavLink) {
   const path: string | null = usePathname();
 
   const isActive = href === '/' 
@@ -23,7 +24,12 @@ export default function NavLink({ href, children, menuToggle }: INavLink) {
     <>
       <Link 
         href={href}
-        className={ isActive ? `${classes.activeNav} ${classes.linkNav}`  : `${classes.linkNav}` }
+        className={ isButton
+                      ? `${classes.isButton}`
+                      : isActive 
+                        ? `${classes.activeNav} ${classes.linkNav}`  
+                        : `${classes.linkNav}` 
+                  }
         onClick={menuToggle}
         >
         {children}

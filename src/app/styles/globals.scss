@@ -42,6 +42,7 @@ h2 {
   font-weight: 600;
   color: $primary;
   font-family: var(--font-hedvig);
+  margin: 8px 0;
 }
 
 h3 {
@@ -54,6 +55,7 @@ h3 {
 
 p {
   font-family: var(--font-hedvig);
+  line-height: 1.625;
 }
 
 .wrapper {
