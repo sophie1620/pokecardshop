@@ -1,0 +1,27 @@
+.cardContainer {
+  width: 146px;
+  height: 200px;
+  position: relative;
+  margin: 12px auto;
+}
+
+.cardDetail {
+  margin-left: 8px;
+  margin-bottom: 8px;
+
+  > p {
+    margin: 4px 0;
+    
+    > span {
+      width: 70px;
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardContainer {
+    width: 233px;
+    height: 320px;
+  }
+}

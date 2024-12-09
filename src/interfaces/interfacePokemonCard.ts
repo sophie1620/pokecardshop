@@ -32,5 +32,6 @@ export interface IPokeCardData {
   types: [],
   updated: string,
   variants: object,
-  weakness:[]
+  weakness:[],
+  price: number
 }
