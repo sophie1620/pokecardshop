@@ -46,9 +46,12 @@ h2 {
 
 h3 {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   font-family: var(--font-hedvig);
+  text-decoration: underline;
+  margin: 4px 0px;
 }
+
 p {
   font-family: var(--font-hedvig);
 }
