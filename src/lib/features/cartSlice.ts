@@ -7,8 +7,7 @@ export interface ICartItem {
   totalPrice: number,
   id: string
 }
-
-interface ICartState {
+export interface ICartState {
   items: ICartItem[],
   totalQuantity: number, 
   totalAmount: number, 
@@ -36,6 +35,7 @@ const cartSlice = createSlice({
 
       state.totalQuantity++;
       state.changed = true;
+      state.totalAmount = state.totalAmount + newItem.price;
 
       if (!existingItem) {
         state.items.push({
@@ -54,8 +54,9 @@ const cartSlice = createSlice({
       const id = action.payload;
       const existingItem = state.items.find(item => item.id === id);
 
+      state.totalAmount = state.totalAmount - existingItem!.price
+
       if (state.totalAmount === 1) {
-        console.log(state.totalQuantity)
         state.totalQuantity = 0
       } else {
         state.totalQuantity--;

@@ -9,10 +9,10 @@ export async function getPokemon() {
       // append image resolution and file type
       for (const item of res.data.cards) {
         const imageUrlHD: string = `${item.image}/high.webp`;
-        const imageUrlReg: string = `${item.image}/low.webp`;
+        // const imageUrlReg: string = `${item.image}/low.webp`;
         
         item.imageUrlHD = imageUrlHD;
-        item.imageUrlReg = imageUrlReg;
+        // item.imageUrlReg = imageUrlReg;
 
         // arbitrary price
         item.price = 2
@@ -38,11 +38,11 @@ export async function getCard(id: string) {
       }
     
       const imageUrlHD: string = `${res.data.image}/high.webp`;
-      const imageUrlReg: string = `${res.data.image}/low.webp`;
+      // const imageUrlReg: string = `${res.data.image}/low.webp`;
       // arbitrary price
       const price: number = 2
       
-      return {...res.data, imageUrlHD, imageUrlReg, price }
+      return {...res.data, imageUrlHD, price }
   } catch (error) {
       console.error(error)
   }

@@ -157,6 +157,17 @@ footer {
   flex-direction: column;
   max-width: 600px;
   margin: 0 auto;
+  min-height: 80%;
+}
+
+.modal-close {
+  border: 1px solid white;
+  border-radius: 4px;
+
+  &:hover, 
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 .cart-button {

@@ -1,6 +1,8 @@
 "use client";
 import { createPortal } from "react-dom";
 import { useRef, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 interface IModalProps {
   open: boolean, 
@@ -30,7 +32,9 @@ export default function Modal({open, children, close}: IModalProps) {
   return createPortal(
     <dialog className="modal" ref={dialog} onClose={close}> 
       <div className="flex flex-row justify-end pr-4 pt-4">
-        <button onClick={close}>X</button>
+        <button className="p-2 modal-close" onClick={close}>
+          <FontAwesomeIcon icon={faClose} size="lg"></FontAwesomeIcon>
+        </button>
       </div>
       {open ? children : null}
     </dialog>,

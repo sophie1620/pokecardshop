@@ -11,23 +11,18 @@ export default function AddToCartBtn({item} : {item: IPokeCardData}) {
   const items = useAppSelector(state => state.cart.items) as ICartItem[];
   const [cardQuantity, setCardQuantity] = useState<number>(0);
 
+    useEffect(() => {
+    const cardItem = items.find((i) => (i.id === item.id));
+    setCardQuantity(cardItem?.quantity ?? 0)
+  }, [items, item.id])
+  
   function handleAddToCart() {
     dispatch(cartActions.addItemsToCart({
       name: item.name,
       price: item.price,
       id: item.id
-    }))
+    }));
   }
-
-  useEffect(() => {
-    const cardItem = items.filter((i) => (
-      i.id === item.id 
-      ? i
-      : null
-    ));
-
-    setCardQuantity(cardItem[0].quantity)
-  }, [items, item.id, item])
 
   return (
     <>

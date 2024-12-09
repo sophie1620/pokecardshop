@@ -17,7 +17,7 @@ export default function PokemonCard({card}: IPokemonCardProps) {
         <div className={classes.cardContainer}>
           <Image
             fill
-            src={card.imageUrlReg}
+            src={card.imageUrlHD}
             alt={`Pokemon card for ${card.name}`}
             sizes="88px, (min-width: 640) 146px, (min-width: 1024) 233px"
             ></Image>
