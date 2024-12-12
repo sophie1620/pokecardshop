@@ -26,7 +26,7 @@ export default function PokemonGrid() {
           {resData?.cards.map((card: IPokemonCard) => (
             <PokemonCard card={card} key={card.id} />
           ))}
-        </ul>  
+        </ul>
 
   </div>
   )
