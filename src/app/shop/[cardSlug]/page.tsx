@@ -34,17 +34,23 @@ export async function generateMetadata({params}: {params: Promise<{cardSlug: str
 export default async function CardPage({params}: {params: Promise<{cardSlug: string}>}) {
   const card = await getCard((await params).cardSlug);
 
-  if (!card) {
-    return <p>Loading...</p>; 
-  }
-
   const cost = Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(card.price);
+
+  const loading = <div className="loading">
+      <div>
+        <p>Loading</p>
+        <div className="loader"></div>
+      </div>
+    </div>
+  
+  if (!card) {
+    return <p>{loading}</p>; 
+  }
 
   return (
     <main>
       <BackButton />
-
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={loading}>
         <h2 className="text-center">{card?.name}</h2>
         <div className={classes.cardContainer}>
           <Image

@@ -4,14 +4,13 @@ export interface IPokemonCard {
   image: string;
   localId: number;
   imageUrlHD: string;
-  imageUrlReg: string
 }
 
 export interface IPokemonData {
   cards: IPokemonCard[];
 }
 
-export interface IPokeCardData {
+export interface IPokemonCardData {
   attacks: [],
   category: string,
   description?: string,
@@ -21,7 +20,6 @@ export interface IPokeCardData {
   illustrator: string, 
   image: string,
   imageUrlHD: string,
-  imageUrlReg: string, 
   legal: object,
   localId: number, 
   name: string,
