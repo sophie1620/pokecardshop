@@ -1,12 +1,12 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-import { IPokeCardData } from "@/interfaces/interfacePokemonCard";
+import { IPokemonCardData } from "@/interfaces/interfacePokemonCard";
 import { cartActions, ICartItem } from "@/lib/features/cartSlice";
 import classes from './addToCartBtn.module.scss'
 import { useEffect, useState } from "react";
 
-export default function AddToCartBtn({item} : {item: IPokeCardData}) {
+export default function AddToCartBtn({item} : {item: IPokemonCardData}) {
   const dispatch = useAppDispatch();
   const items = useAppSelector(state => state.cart.items) as ICartItem[];
   const [cardQuantity, setCardQuantity] = useState<number>(0);
