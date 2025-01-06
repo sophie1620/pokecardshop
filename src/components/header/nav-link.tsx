@@ -12,7 +12,6 @@ interface INavLink {
   isButton?: boolean
 }
 
-
 export default function NavLink({ href, children, menuToggle, isButton = false }: INavLink) {
   const path: string | null = usePathname();
 
